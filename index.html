@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lucky Chatbot</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #message {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      box-sizing: border-box;
+      border: 2px solid #222;
+      border-radius: 10px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 12px 25px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    #reply {
+      margin-top: 20px;
+      padding: 15px;
+      background: white;
+      border-radius: 10px;
+      min-height: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Lucky Chatbot</h1>
+
+  <input
+    id="message"
+    placeholder="Type a message"
+  >
+
+  <button onclick="sendMessage()">Send</button>
+
+  <p id="reply"></p>
+
+  <script>
+    function chatbot(message) {
+
+      message = message.toLowerCase().trim();
+
+      if (message === "hello") {
+        return "Hey! How are you?";
+      }
+
+      if (message === "bye") {
+        return "Goodbye! See you later.";
+      }
+
+      if (message === "how are you") {
+        return "I'm doing great";
+      }
+
+      if (message === "what is your name") {
+        return "My name is Lucky";
+      }
+
+      if (message === "what is 10 + 10") {
+        return 10 + 10;
+      }
+
+      if (message === "what is 50 + 50") {
+        return 50 + 50;
+      }
+
+      if (message === "what is 100 - 40") {
+        return 100 - 40;
+      }
+
+      if (message === "what is 25 * 5") {
+        return 25 * 5;
+      }
+
+      if (message === "thanks") {
+        return "You are welcome";
+      }
+
+      return "Sorry, I don't understand that yet.";
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("message");
+      const reply = document.getElementById("reply");
+
+      reply.textContent = chatbot(input.value);
+    }
+  </script>
+
+</body>
+</html>
