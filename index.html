@@ -1,16 +1,340 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Lucky Chatbot</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Assistant</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
-      background: #f4f4f4;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #111;
+        }
+
+        .app {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .info-btn {
+            border: none;
+            background: #111;
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .tagline {
+            color: #666;
+            margin-top: -15px;
+            margin-bottom: 25px;
+        }
+
+        .chat-box {
+            min-height: 350px;
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .welcome {
+            text-align: center;
+            color: #777;
+            padding: 80px 10px;
+        }
+
+        .message {
+            padding: 12px 15px;
+            border-radius: 15px;
+            margin: 10px 0;
+            max-width: 85%;
+        }
+
+        .user-message {
+            background: #111;
+            color: white;
+            margin-left: auto;
+        }
+
+        .lucky-message {
+            background: #eee;
+            color: #111;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        #message {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        #message:focus {
+            border-color: #111;
+        }
+
+        .send-btn {
+            padding: 0 20px;
+            border: none;
+            border-radius: 12px;
+            background: #111;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .send-btn:active,
+        .info-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Info window */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 25px;
+            border-radius: 20px;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+        }
+
+        .feature {
+            margin: 12px 0;
+        }
+
+        .close-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: #111;
+            color: white;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 650px) {
+            .app {
+                margin: 10px auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app">
+
+        <div class="header">
+            <div class="logo">LUCKY</div>
+
+            <button class="info-btn" onclick="openInfo()">
+                ⓘ
+            </button>
+        </div>
+
+        <p class="tagline">Your mini web assistant 🤖</p>
+
+        <div class="chat-box" id="chatBox">
+            <div class="welcome">
+                <h2>Hey! 👋</h2>
+                <p>I'm Lucky. Send me a message to get started.</p>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <input
+                id="message"
+                type="text"
+                placeholder="Ask Lucky something..."
+            >
+
+            <button class="send-btn" onclick="sendMessage()">
+                Send
+            </button>
+        </div>
+
+    </div>
+
+    <!-- INFO MENU -->
+
+    <div class="modal" id="infoModal">
+
+        <div class="modal-content">
+
+            <h2>About Lucky 🤖</h2>
+
+            <p>
+                Lucky is a mini assistant built with HTML, CSS and JavaScript.
+            </p>
+
+            <div class="feature">💬 Chat with Lucky</div>
+            <div class="feature">👋 Respond to greetings</div>
+            <div class="feature">🧮 Solve calculations</div>
+            <div class="feature">❓ Answer supported questions</div>
+
+            <p>
+                More abilities are coming soon. 🚀
+            </p>
+
+            <button class="close-btn" onclick="closeInfo()">
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function chatbot(message) {
+
+            message = message.toLowerCase();
+            message = message.trim();
+
+            if (message === "hello" ||
+                message === "hi" ||
+                message === "hey") {
+
+                return "Hey! 👋 How are you?";
+            }
+
+            if (message === "bye") {
+
+                return "Goodbye! See you later. 👋";
+            }
+
+            if (message === "how are you") {
+
+                return "I'm doing great! 😎";
+            }
+
+            if (message === "what is your name" ||
+                message === "who are you") {
+
+                return "My name is Lucky. 🤖";
+            }
+
+            if (message === "thanks" ||
+                message === "thank you") {
+
+                return "You're welcome! 😎";
+            }
+
+            return "Sorry, I don't understand that yet. 🤔";
+        }
+
+
+        function sendMessage() {
+
+            const input = document.getElementById("message");
+            const chatBox = document.getElementById("chatBox");
+
+            const message = input.value.trim();
+
+            if (message === "") {
+                return;
+            }
+
+            const welcome = document.querySelector(".welcome");
+
+            if (welcome) {
+                welcome.remove();
+            }
+
+            const userMessage = document.createElement("div");
+
+            userMessage.className = "message user-message";
+            userMessage.textContent = message;
+
+            chatBox.appendChild(userMessage);
+
+            const reply = document.createElement("div");
+
+            reply.className = "message lucky-message";
+            reply.textContent = chatbot(message);
+
+            chatBox.appendChild(reply);
+
+            input.value = "";
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+
+        function openInfo() {
+
+            document.getElementById("infoModal").style.display = "flex";
+
+        }
+
+
+        function closeInfo() {
+
+            document.getElementById("infoModal").style.display = "none";
+
+        }
+
+
+        document.getElementById("message").addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+                    sendMessage();
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
 
     h1 {
       text-align: center;
