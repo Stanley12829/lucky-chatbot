@@ -265,6 +265,22 @@
                 return "You're welcome! 😎";
             }
 
+           // Calculator
+const calculation = message
+    .replace(/×/g, "*")
+    .replace(/÷/g, "/");
+
+if (/^[0-9+\-*/().\s]+$/.test(calculation)) {
+    try {
+        const result = Function('"use strict"; return (' + calculation + ')')();
+
+        if (Number.isFinite(result)) {
+            return "The answer is " + result + " 🧮";
+        }
+    } catch (error) {
+        // Not a valid calculation, so continue normally
+    }
+}
             return "Sorry, I don't understand that yet. 🤔";
         }
 
