@@ -270,7 +270,7 @@ const calculation = message
     .replace(/×/g, "*")
     .replace(/÷/g, "/");
 
-if (/^[0-9+\-*\/().\s]+$/.test(calculation)) { {
+if (/^[0-9+\-*\/().\s]+$/.test(calculation)) {
     try {
         const result = Function('"use strict"; return (' + calculation + ')')();
 
