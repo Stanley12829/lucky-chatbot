@@ -234,7 +234,7 @@
     <button onclick="showCalculator()">🧮 Calculator</button>
     <button onclick="showTime()">🕐 Time</button>
     <button onclick="showDate()">📅 Date</button>
-    <button>ℹ️ About</button>
+    <button onclick="openAbout()">ℹ️ About</button>
 </div>
     
     <div class="app">
@@ -657,8 +657,10 @@ function showDate() {
     const today = new Date();
     alert(today.toLocaleDateString());
 }
-        
-    </script>
+  function openAbout() {
+    alert("LUCKY\n\nYour mini web assistant.\nBuilt by Stanley.\nVersion 1.0");
+  }        
+     </script>
 
 </body>
 </html>
