@@ -270,54 +270,38 @@
         return "You're welcome! 😎";
     }
 
-    return "Sorry, I don't understand that yet. 🤔";
-        }
-   }
-
-        
-         // Time
-if (
-    message === "what is the time" ||
-    message === "what time is it" ||
-    message === "time"
-
-) {
-    const now = new Date();
-
-    return "The current time is " +
-        now.toLocaleTimeString();
-}          
-
-            // Date
-if (
-    message === "what is the date" ||
-    message === "what is today's date" ||
-    message === "date"
-) {
-    const now = new Date();
-
-    return "Today's date is " +
-        now.toLocaleDateString();
-}
-            
-            // Calculator
-const calculation = message
-    .replace(/×/g, "*")
-    .replace(/÷/g, "/");
-
-if (/^[0-9+\-*\/().\s]+$/.test(calculation)) {
-    try {
-        const result = Function('"use strict"; return (' + calculation + ')')();
-
-        if (Number.isFinite(result)) {
-            return "The answer is " + result + " 🧮";
-        }
-    } catch (error) {
-        // Not a valid calculation, so continue normally
+    if (message === "what is the time" ||
+        message === "what time is it" ||
+        message === "time") {
+        return "The current time is " + new Date().toLocaleTimeString();
     }
-}
-            return "Sorry, I don't understand that yet. 🤔";
+
+    if (message === "what is the date" ||
+        message === "what is today's date" ||
+        message === "date") {
+        return "Today's date is " + new Date().toLocaleDateString();
+    }
+
+    const calculation = message
+        .replace(/×/g, "*")
+        .replace(/÷/g, "/");
+
+    if (/^[0-9+\-*\/().\s]+$/.test(calculation)) {
+        try {
+            const result = Function(
+                '"use strict"; return (' + calculation + ')'
+            )();
+
+            if (Number.isFinite(result)) {
+                return "The answer is " + result + " 🧮";
+            }
+        } catch (error) {
+            // Not a valid calculation
         }
+    }
+
+    return "Sorry, I don't understand that yet. 🤔";
+        } 
 
 
         function sendMessage() {
