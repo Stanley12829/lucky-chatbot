@@ -235,45 +235,43 @@
         
         function chatbot(message) {
 
-            message = message.toLowerCase();
-            message = message.trim();
-           
-            if (message === "my name is stanley") {
-                return "Nice to meet you,Stanley!😎";
-            } 
-            
-            if (message === "what is my name" ||
-                message === "what is my name?") {
-                return "Your name is" + username + ". 😎";
-            } 
-                
-            if (message === "hello" ||
-                message === "hi" ||
-                message === "hey") {
+    message = message.toLowerCase().trim();
 
-                return "Hey! 👋 How are you?";
-            }
+    if (message === "my name is stanley") {
+        return "Nice to meet you, Stanley! 😎";
+    }
 
-            if (message === "bye") {
+    if (message === "what is my name" ||
+        message === "what is my name?") {
+        return "Your name is " + username + " 😎";
+    }
 
-                return "Goodbye! See you later. 👋";
-            }
+    if (message === "hello" ||
+        message === "hi" ||
+        message === "hey") {
+        return "Hey! 👋 How are you?";
+    }
 
-            if (message === "how are you") {
+    if (message === "bye") {
+        return "Goodbye! See you later. 👋";
+    }
 
-                return "I'm doing great! 😎";
-            }
+    if (message === "how are you") {
+        return "I'm doing great! 😎";
+    }
 
-            if (message === "what is your name" ||
-                message === "who are you") {
+    if (message === "what is your name" ||
+        message === "who are you") {
+        return "My name is Lucky. 🤖";
+    }
 
-                return "My name is Lucky. 🤖";
-            }
+    if (message === "thanks" ||
+        message === "thank you") {
+        return "You're welcome! 😎";
+    }
 
-            if (message === "thanks" ||
-                message === "thank you") {
-
-                return "You're welcome! 😎";
+    return "Sorry, I don't understand that yet. 🤔";
+        }
    }
 
         
