@@ -233,7 +233,7 @@
     <button onclick="showChat()">💬 Chat</button>
     <button onclick="showCalculator()">🧮 Calculator</button>
     <button onclick="showTime()">🕐 Time</button>
-    <button>📅 Date</button>
+    <button onclick="showDate()">📅 Date</button>
     <button>ℹ️ About</button>
 </div>
     
@@ -652,6 +652,10 @@ if (message === "what is your favorite color") {
 function showTime() {
     const now = new Date();
     alert(now.toLocaleTimeString());
+}
+function showDate() {
+    const today = new Date();
+    alert(today.toLocaleDateString());
 }
         
     </script>
