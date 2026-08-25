@@ -162,11 +162,81 @@
                 margin: 10px auto;
             }
         }
+/* MENU BUTTON */
+.menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: #111;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* SIDE MENU */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 250px;
+    height: 100vh;
+    background: white;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+    padding: 80px 15px 20px;
+    z-index: 1000;
+    transition: left 0.3s ease;
+}
+
+/* OPEN MENU */
+.side-menu.open {
+    left: 0;
+}
+
+/* MENU TITLE */
+.side-menu h2 {
+    margin-bottom: 25px;
+}
+
+/* MENU BUTTONS */
+.side-menu button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #f1f1f1;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.side-menu button:hover {
+    background: #e5e5e5;
+}
+        
     </style>
 </head>
 
 <body>
 
+<button class="menu-button" onclick="toggleMenu()">☰</button>
+
+<div id="sideMenu" class="side-menu">
+    <h2>LUCKY</h2>
+
+    <button onclick="showChat()">💬 Chat</button>
+    <button onclick="showCalculator()">🧮 Calculator</button>
+    <button>🕐 Time</button>
+    <button>📅 Date</button>
+    <button>ℹ️ About</button>
+</div>
+    
     <div class="app">
 
         <div class="header">
@@ -230,7 +300,192 @@
     </div>
 
     <script>
- 
+
+function toggleMenu() {
+    const menu = document.getElementById("sideMenu");
+    menu.classList.toggle("open");
+}
+
+function closeMenu() {
+    const menu = document.getElementById("sideMenu");
+    menu.classList.remove("open");
+}
+
+function showChat() {
+    closeMenu();
+
+    const calculator = document.getElementById("calculatorScreen");
+
+    if (calculator) {
+        calculator.style.display = "none";
+    }
+
+    document.querySelector(".app").style.display = "block";
+}
+
+function showCalculator() {
+    closeMenu();
+
+    const app = document.querySelector(".app");
+
+    app.style.display = "none";
+
+    let calculator = document.getElementById("calculatorScreen");
+
+    if (!calculator) {
+        calculator = document.createElement("div");
+
+        calculator.id = "calculatorScreen";
+
+        calculator.innerHTML = `
+            <div style="
+                max-width: 500px;
+                margin: 30px auto;
+                padding: 25px;
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            ">
+
+                <button onclick="showChat()" style="
+                    border: none;
+                    background: #111;
+                    color: white;
+                    padding: 10px 16px;
+                    border-radius: 10px;
+                    font-size: 16px;
+                    cursor: pointer;
+                ">
+                    ← Back to Chat
+                </button>
+
+                <h1 style="margin-top: 25px;">
+                    🧮 Calculator
+                </h1>
+
+                <input
+                    id="calculatorDisplay"
+                    type="text"
+                    readonly
+                    style="
+                        width: 100%;
+                        box-sizing: border-box;
+                        padding: 18px;
+                        font-size: 24px;
+                        margin: 15px 0;
+                        border: 2px solid #ddd;
+                        border-radius: 12px;
+                        text-align: right;
+                    "
+                >
+
+                <div style="
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 10px;
+                ">
+
+                    <button onclick="calculatorClear()">C</button>
+                    <button onclick="calculatorInput('(')">(</button>
+                    <button onclick="calculatorInput(')')">)</button>
+                    <button onclick="calculatorInput('/')">÷</button>
+
+                    <button onclick="calculatorInput('7')">7</button>
+                    <button onclick="calculatorInput('8')">8</button>
+                    <button onclick="calculatorInput('9')">9</button>
+                    <button onclick="calculatorInput('*')">×</button>
+
+                    <button onclick="calculatorInput('4')">4</button>
+                    <button onclick="calculatorInput('5')">5</button>
+                    <button onclick="calculatorInput('6')">6</button>
+                    <button onclick="calculatorInput('-')">−</button>
+
+                    <button onclick="calculatorInput('1')">1</button>
+                    <button onclick="calculatorInput('2')">2</button>
+                    <button onclick="calculatorInput('3')">3</button>
+                    <button onclick="calculatorInput('+')">+</button>
+
+                    <button onclick="calculatorInput('0')">0</button>
+                    <button onclick="calculatorInput('.')">.</button>
+                    <button onclick="calculatorBackspace()">⌫</button>
+                    <button onclick="calculateResult()">=</button>
+
+                </div>
+            </div>
+        `;
+
+        document.body.insertBefore(calculator, app);
+
+        const buttons = calculator.querySelectorAll("button:not([onclick='showChat()'])");
+
+        buttons.forEach(button => {
+            button.style.padding = "16px";
+            button.style.fontSize = "20px";
+            button.style.border = "none";
+            button.style.borderRadius = "12px";
+            button.style.background = "#f1f1f1";
+            button.style.cursor = "pointer";
+        });
+    }
+
+    calculator.style.display = "block";
+}
+
+let calculatorExpression = "";
+
+function calculatorInput(value) {
+    calculatorExpression += value;
+
+    document.getElementById("calculatorDisplay").value =
+        calculatorExpression;
+}
+
+function calculatorClear() {
+    calculatorExpression = "";
+
+    document.getElementById("calculatorDisplay").value = "";
+}
+
+function calculatorBackspace() {
+    calculatorExpression = calculatorExpression.slice(0, -1);
+
+    document.getElementById("calculatorDisplay").value =
+        calculatorExpression;
+}
+
+function calculateResult() {
+    if (!calculatorExpression) {
+        return;
+    }
+
+    if (!/^[0-9+\-*/().\s]+$/.test(calculatorExpression)) {
+        document.getElementById("calculatorDisplay").value = "Error";
+        calculatorExpression = "";
+        return;
+    }
+
+    try {
+        const result = Function(
+            '"use strict"; return (' + calculatorExpression + ')'
+        )();
+
+        if (Number.isFinite(result)) {
+            calculatorExpression = String(result);
+
+            document.getElementById("calculatorDisplay").value =
+                calculatorExpression;
+        } else {
+            throw new Error();
+        }
+
+    } catch (error) {
+        calculatorExpression = "";
+
+        document.getElementById("calculatorDisplay").value =
+            "Error";
+    }
+}
+        
         let username = "Stanley";
         
         function chatbot(message) {
