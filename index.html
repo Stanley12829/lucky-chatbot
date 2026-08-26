@@ -47,6 +47,24 @@
     }
 }
 
+.typing {
+    animation: typingDots 1s infinite;
+}
+
+@keyframes typingDots {
+    0%, 20% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    80%, 100% {
+        opacity: 0.3;
+    }
+}
+        
         .info-btn {
             border: none;
             background: #111;
@@ -672,10 +690,19 @@ if (message.includes("what can you do")) {
 
             const reply = document.createElement("div");
 
-            reply.className = "message lucky-message";
-            reply.textContent = chatbot(message);
+reply.className = "message lucky-message typing";
+reply.textContent = "•••";
 
-            chatBox.appendChild(reply);
+chatBox.appendChild(reply);
+
+chatBox.scrollTop = chatBox.scrollHeight;
+
+setTimeout(() => {
+    reply.classList.remove("typing");
+    reply.textContent = chatbot(message);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+}, 1200);
 
             input.value = "";
 
