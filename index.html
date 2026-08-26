@@ -31,9 +31,21 @@
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: bold;
-        }
+    font-size: 28px;
+    font-weight: bold;
+    animation: luckyPulse 2.5s ease-in-out infinite;
+    transform-origin: center;
+}
+
+@keyframes luckyPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
 
         .info-btn {
             border: none;
