@@ -514,7 +514,21 @@ function calculateResult() {
     if (message === "how are you") {
         return "I'm doing great! 😎";
     }
-
+   
+    if (
+    message === "good" ||
+    message === "fine" ||
+    message === "great" ||
+    message === "i'm good" ||
+    message === "im good" ||
+    message === "i am good" ||
+    message === "i'm fine" ||
+    message === "im fine" ||
+    message === "i am fine"
+) {
+    return "That's great to hear, Stanley! 😎🔥 What are you up to?";
+    }
+            
     if (message === "what is your name" ||
         message === "who are you") {
         return "My name is Lucky. 🤖";
