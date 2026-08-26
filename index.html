@@ -583,7 +583,39 @@ if (message === "tell me a joke") {
 if (message === "what is your favorite color") {
     return "I'd say black. It matches my robot personality. 🖤🤖";
 }
-            
+// Smarter conversations
+if (message.includes("hello") || message.includes("hi") || message.includes("hey")) {
+    return "Hey! 👋 I'm LUCKY. How can I help you?";
+}
+
+if (message.includes("how are you")) {
+    return "I'm doing great! 🤖🔥 Thanks for asking. How about you?";
+}
+
+if (message.includes("your name") || message.includes("who are you")) {
+    return "I'm LUCKY 🤖, your mini web assistant!";
+}
+
+if (message.includes("who made you") || message.includes("who created you")) {
+    return "I was created by Stanley! 👨‍💻🔥";
+}
+
+if (message.includes("thank")) {
+    return "You're welcome, Stanley! 😎🤝";
+}
+
+if (message.includes("good morning")) {
+    return "Good morning, Stanley! ☀️ Hope you're having a great day!";
+}
+
+if (message.includes("good night")) {
+    return "Good night, Stanley! 🌙 Sleep well!";
+}
+
+if (message.includes("what can you do")) {
+    return "I can chat with you, tell the time and date, do calculations, and answer simple questions. 🤖";
+}
+    
     return "Sorry, I don't understand that yet. 🤔";
         } 
 
