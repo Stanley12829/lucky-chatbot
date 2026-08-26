@@ -47,6 +47,18 @@
     }
 }
 
+@keyframes messageAppear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+        
 .typing {
     animation: typingDots 1s infinite;
 }
@@ -102,6 +114,7 @@
             border-radius: 15px;
             margin: 10px 0;
             max-width: 85%;
+            animation: messageAppear 0.35s ease-out;
         }
 
         .user-message {
